@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,19 +15,20 @@ public class Market {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Online Market!");
-
+    
         while (true) {
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("3. Exit");
             System.out.print("Select an option: ");
-
+    
             String input = scanner.nextLine();
-
             switch (input) {
                 case "1":
-                    login(scanner);
-                    MarketMenu(scanner, currentUser);
+                    User user = login(scanner);
+                    if (user != null) {
+                        MarketMenu(scanner, user);
+                    }
                     break;
                 case "2":
                     register(scanner);
@@ -39,8 +41,8 @@ public class Market {
             }
         }
     }
-
-    private static void login(Scanner scanner) {
+    
+    private static User login(Scanner scanner) {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
     
@@ -53,9 +55,8 @@ public class Market {
                 String[] userData = fileScanner.nextLine().split(",");
                 if (userData[0].equals(username) && userData[1].equals(password)) {
                     System.out.println("Login successful!");
-                    currentUser = new User(username, password);
                     fileScanner.close();
-                    return;
+                    return new User(username, password);
                 }
             }
             fileScanner.close();
@@ -64,32 +65,31 @@ public class Market {
             System.out.println("Error reading user data.");
             e.printStackTrace();
         }
+    
+        return null;
     }
     
-
     private static void register(Scanner scanner) {
         System.out.print("Enter a username: ");
         String username = scanner.nextLine();
-
+    
         System.out.print("Enter a password: ");
         String password = scanner.nextLine();
-
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
+    
         try {
-            FileWriter writer = new FileWriter(USER_DATA_FILE, true);
-            writer.write(username + "," + password + "," + name + "," + email + "\n");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(USER_DATA_FILE, true));
+            writer.write(username + "," + password);
+            writer.newLine();
             writer.close();
+    
             System.out.println("Registration successful!");
+            currentUser = new User(username, password);
         } catch (IOException e) {
             System.out.println("Error writing user data.");
             e.printStackTrace();
         }
     }
+    
 
     private static void MarketMenu(Scanner scanner, User currentUser) {
         while (true) {
