@@ -101,7 +101,8 @@ public class Market {
             System.out.println("| 2. Add item to cart                  |");
             System.out.println("| 3. View cart                         |");
             System.out.println("| 4. Your Inventory                    |");
-            System.out.println("| 5. Exit                              |");
+            System.out.println("| 5. Account fund                      |");
+            System.out.println("| 6. Exit                              |");
             System.out.println("|                                      |");
             System.out.println("=======================================");
 
@@ -128,7 +129,11 @@ public class Market {
                 case 4:
                     viewInventory(currentUser);
                     break;
-                case 5:
+               case 5:
+                    displayAccountFunds();
+                    break;
+            
+                case 6:
                     System.out.println("Goodbye!");
                     return;
                 default:
@@ -203,5 +208,13 @@ public class Market {
         }
     }
     
+    public static void displayAccountFunds() {
+        System.out.println("Your current balance is: $" + currentUser.getBalance());
+    }
+    
+    private User getCurrentUser() {
+        // code to retrieve the current user
+        return currentUser;
+    }
     
 }   
