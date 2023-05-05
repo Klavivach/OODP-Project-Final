@@ -93,12 +93,18 @@ public class Market {
 
     private static void MarketMenu(Scanner scanner, User currentUser) {
         while (true) {
-            System.out.println("Welcome to the Online Market Item!");
-            System.out.println("1. View items");
-            System.out.println("2. Add item to cart");
-            System.out.println("3. View cart");
-            System.out.println("4. Your Inventory");
-            System.out.println("5. Exit");
+            System.out.println("=======================================");
+            System.out.println("| Welcome to the Online Market Item!    |");
+            System.out.println("=======================================");
+            System.out.println("|                                      |");
+            System.out.println("| 1. View items                        |");
+            System.out.println("| 2. Add item to cart                  |");
+            System.out.println("| 3. View cart                         |");
+            System.out.println("| 4. Your Inventory                    |");
+            System.out.println("| 5. Exit                              |");
+            System.out.println("|                                      |");
+            System.out.println("=======================================");
+
             System.out.print("Enter your choice: ");
     
             int choice = scanner.nextInt();
@@ -149,8 +155,14 @@ public class Market {
             // Read each line of the file and display the item details
             while (scanner.hasNextLine()) {
                 String[] itemDetails = scanner.nextLine().split(",");
-                System.out.println("Item name: " + itemDetails[0]);
-                System.out.println("Item price: " + itemDetails[1]);
+                System.out.println("=======================================");
+                System.out.println("|                                      |");
+                System.out.println("| Item name: "+ itemDetails[0]   +       "|");
+                System.out.println("|                                      |");
+                System.out.println("| Item price: "+ itemDetails[1]    +     "|");
+                System.out.println("|                                      |");
+                System.out.println("=======================================");
+    
                 System.out.println();
             }
     
